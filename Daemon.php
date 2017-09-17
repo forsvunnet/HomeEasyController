@@ -8,9 +8,12 @@ set_time_limit(0);
  * as it comes in. */
 ob_implicit_flush();
 
-$address = '192.168.1.53';
 $address = '127.0.0.1';
 $port = 10001;
+
+if ( get_current_user() != 'root' ) {
+  die( 'Please run as root' );
+}
 
 /**
  * Create socket stuff
@@ -56,12 +59,15 @@ while ( 1 ) {
         // $talkback = "PHP: You said '$buffer'.\n";
         // socket_write( $msgsock, $talkback, strlen($talkback) );
         // echo "$buffer\n";
-        if ( ! preg_match('/^\d:\d$/', $buffer) ) {
+        if ( ! preg_match('/^(\d+):(\d+)$/', $buffer, $matches) ) {
             echo "Invalid command sent: $buffer\n";
             continue;
         }
+        $light = intval( $matches[1] );
+        $toggle = intval( $matches[2] ) ? 'on' : 'off';
         echo "Sending to TTY: $buffer\n";
-        shell_exec( __DIR__.'/light '. $buffer );
+        $command = "piHomeEasy 0 22063970 %s %s";
+        shell_exec( sprintf( $command, $light, $toggle ) );
 
     }
     socket_close($msgsock);
