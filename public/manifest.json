@@ -1,0 +1,9 @@
+{
+  "short_name": "Lights",
+  "name": "Light remote for No.2",
+  "icons": [
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait"
+}
