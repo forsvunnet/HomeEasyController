@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo nohup php /var/www/Daemon.php &
+sudo nohup php Daemon.php &

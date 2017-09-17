@@ -12,7 +12,6 @@ $address = '127.0.0.1';
 $port = 10001;
 
 if ( get_current_user() != 'root' ) {
-  die( 'Please run as root' );
 }
 
 /**
@@ -63,7 +62,7 @@ while ( 1 ) {
             echo "Invalid command sent: $buffer\n";
             continue;
         }
-        $light = intval( $matches[1] );
+        $light = intval( $matches[1] ) - 1;
         $toggle = intval( $matches[2] ) ? 'on' : 'off';
         echo "Sending to TTY: $buffer\n";
         $command = "piHomeEasy 0 22063970 %s %s";
