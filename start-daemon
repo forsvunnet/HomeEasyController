@@ -1,0 +1,2 @@
+#!/bin/bash
+sudo nohup php /var/www/Daemon.php &
